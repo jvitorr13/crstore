@@ -1,13 +1,11 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
-      <v-card class="logo py-4 d-flex justify-center">
-        <NuxtLogo />
-        <VuetifyLogo />
-      </v-card>
+      
       <v-card>
+        <img height="320" src ="https://logo.criativoon.com/wp-content/uploads/2016/07/logomarca-lanchonete.png">
         <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
+          bem vindo a lanchonete
         </v-card-title>
         <v-card-text>
           <p>
@@ -52,28 +50,13 @@
             more exciting features in the future.
           </p>
           <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
+            <em><small>&mdash; João</small></em>
           </div>
           <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
+          <v-btn color="primary" nuxt to="/.login"> Continue </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>

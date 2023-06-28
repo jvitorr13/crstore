@@ -1,10 +1,13 @@
-import Vue from "Vue";
-import toast from "vue-toastification";
+
+import Vue from "vue";
+import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
-Vue.use(toast,{
-  transition: "vue-toastification_fade",
-  maxToast: 10,
-  newestOnToop: true,
-  position: "bottom=rigth"
+
+
+Vue.use(Toast, {
+  transition: "my-custom-fade",
+  maxToasts: 5,
+  newestOnTop: true,
+  position: "bottom-right"
 });

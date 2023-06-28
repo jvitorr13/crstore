@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app blue>
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -78,8 +78,13 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
+          title: 'Cadastro',
+          to: '/pages/login',
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'product',
+          to: '/pages/product',
         },
       ],
       miniVariant: false,
