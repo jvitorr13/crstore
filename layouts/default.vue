@@ -41,7 +41,7 @@
         <v-icon>mdi-menu</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-main>
+    <v-main style="background-color:">
       <v-container>
         <Nuxt />
       </v-container>
@@ -62,6 +62,7 @@
   </v-app>
 </template>
 
+
 <script>
 export default {
   name: 'DefaultLayout',
@@ -77,15 +78,21 @@ export default {
           to: '/',
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Cadastro',
-          to: '/pages/login',
+          icon: 'mdi-language-javascript',
+          title: 'Categorias',
+          to: '/admin/categoria',
         },
-        {
-          icon: 'mdi-chart-bubble',
+      {
+          icon: 'mdi-package-variant-plus',
           title: 'product',
-          to: '/pages/product',
+          to: '/admin/product',
+        },  
+        {
+          icon: 'mdi-package-variant-plus',
+          title: 'order',
+          to: '/admin/order',
         },
+      
       ],
       miniVariant: false,
       right: true,
