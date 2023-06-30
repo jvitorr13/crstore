@@ -1,10 +1,8 @@
 
 <template>
-  
   <v-row justify="center">
     <v-col cols="12" sm="8" md="6">
       <v-card>
-        
         <img height="360" width="568" src="https://logo.criativoon.com/wp-content/uploads/2016/07/logomarca-lanchonete.png">
         <v-card-title class="headline">
           Bem-vindo à lanchonete
@@ -31,7 +29,8 @@
           <hr class="my-3" />
         </v-card-text>
         <v-card-actions>
-          <v-btn text color="primary" class="ml-auto" to="/login">Login</v-btn>
+          <v-btn text color="primary" class="mr-4" to="/login">Login</v-btn>
+          <v-btn text color="red" to="/cadastro">Cadastro</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
