@@ -66,6 +66,7 @@
 <script>
 export default {
   name: 'DefaultLayout',
+  layouts: 'usuario.vue',
   data() {
     return {
       clipped: false,
@@ -80,7 +81,7 @@ export default {
         {
           icon: 'mdi-language-javascript',
           title: 'Categorias',
-          to: '/admin/categoria',
+          to: '/admin/categories',
         },
       {
           icon: 'mdi-package-variant-plus',
@@ -88,10 +89,25 @@ export default {
           to: '/admin/product',
         },  
         {
-          icon: 'mdi-package-variant-plus',
+          icon: 'mdi-check-decagram',
           title: 'order',
           to: '/admin/order',
         },
+        {
+          icon: 'mdi-cash',
+          title: 'payment',
+          to: '/admin/payment'
+        },
+        {
+          icon: 'mdi-account-edit',
+          title: 'user',
+          to: '/admin/users'
+        },
+        {
+          icon: 'mdi-map-marker',
+          title: 'adress',
+          to: '/admin/adress'
+        }
       
       ],
       miniVariant: false,

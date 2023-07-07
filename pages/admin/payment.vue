@@ -10,7 +10,7 @@
   >
     <v-row>
       <v-col class="d-flex justify-center align-center">
-        <h1 >Cadastro de Produtos</h1>
+        <h1 >Cadastro de Pagamentos</h1>
       </v-col>
     </v-row>
     <v-row class="d-flex justify-center align-center">
@@ -21,10 +21,10 @@
     <v-row style="padding-top: 20px" class="d-flex justify-center align-center">
       <v-card
         class="elevation-10"
-        width="1080"
+        width="900"
         
       >
-        <v-card-title>
+        <v-card-title >
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
@@ -34,7 +34,7 @@
           ></v-text-field>
         </v-card-title>
         <v-data-table
-         
+          
           :headers="headers"
           :items="items"
           :search="search"
@@ -57,52 +57,26 @@
         </v-card-title>
         <v-card-content style="padding: 15px">
           <v-row>
-            <v-col>
-              <v-autocomplete
-                v-model="idCategory"
-                :items="categories"
-                item-text="name"
-                item-value="id"
-                label="Categoria"
-              />
+            <v-col cols="2">
+              <v-text-field
+                v-model="id"
+                outlined
+                disabled
+                
+                
+                placeholder="ID do Pagamento"
+                label="ID do Pagamento"
+              >
+              </v-text-field>
             </v-col>
             <v-col>
               <v-text-field
                 v-model="name"
                 outlined
-               
-                placeholder="Nome do produto"
-                label="Nome do produto"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col>
-              <v-text-field
-                v-model="price"
-                outlined
-               
-                placeholder="Preço"
-                label="Preço"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col>
-              <v-text-field
-                v-model="image"
-                outlined
-               
-                placeholder="Imagem do produto"
-                label="Imagem do produto"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col>
-              <v-text-field
-                v-model="description"
-                outlined
                 
-                placeholder="Descrição"
-                label="Descrição"
+                background-color="blue-grey darken-3"
+                placeholder="Nome do Pagamento"
+                label="Nome do Pagamento"
               >
               </v-text-field>
             </v-col>
@@ -124,13 +98,9 @@ export default {
     return {
       search: null,
       items: [],
-      categories: [],
-      id: null,
-      name: null,
-      price: null,
-      image: null,
-      description: null,
       dialog: false,
+      name: null,
+      id: null,
       headers: [
         {
           text: 'ID',
@@ -138,31 +108,11 @@ export default {
           align: 'center',
         },
         {
-          text: 'Nome',
+          text: 'Pagamento',
           value: 'name',
           align: 'center',
         },
-        {
-          text: 'Preço',
-          value: 'price',
-          align: 'center',
-        },
-        {
-          text: 'Imagem',
-          value: 'image',
-          align: 'center',
-        },
-        {
-          text: 'Descrição',
-          value: 'description',
-          align: 'center',
-        },
-        {
-          text: 'ID da Categoria',
-          value: 'idCategory',
-          align: 'center',
-        },
-        { text: 'Ações', value: 'actions', style: 'center', filterable: false },
+        { text: 'Ações', value: 'actions', align: 'center', filterable: false },
       ],
     }
   },
@@ -174,73 +124,47 @@ export default {
   },
 
   async created() {
-    await this.getAllProducts()
-    await this.getAllCategories()
+    await this.getAllPayments()
   },
-
   methods: {
     update(item) {
-      this.id = item.id
       this.name = item.name
-      this.price = item.price
-      this.image = item.image
-      this.description = item.description
-      this.idCategory = item.idCategory
+      this.id = item.id
       this.dialog = true
     },
-
     async persist() {
       try {
         const request = {
           name: this.name,
-          price: this.price,
-          image: this.image,
-          description: this.description,
-          idCategory: this.idCategory,
         }
         if (this.id) {
-          await this.$api.patch(`/products/${this.id}`, request)
+          await this.$api.patch(`/payment/${this.id}`, request)
           this.$toast.success('Dado editado com êxito.')
         } else {
-          await this.$api.post(`/products/`, request)
+          await this.$api.post(`/payment/`, request)
           this.$toast.success('Dado adicionado com êxito.')
         }
         this.name = null
-        this.price = null
-        this.image = null
-        this.idCategory = null
-        this.description = null
         this.id = null
         this.dialog = false
-        await this.getAllProducts()
+        await this.getAllPayments()
       } catch (error) {
         return this.$toast.warning('Ocorreu um erro.')
       }
     },
-
     async destroy(item) {
       try {
-        await this.$api.delete(`/products/destroy/${item.id}`)
-        await this.getAllProducts()
+        await this.$api.delete(`/payment/destroy/${item.id}`)
+        await this.getAllPayments()
         this.$toast.success('Dado excluído com êxito.')
       } catch (error) {
         return this.$toast.warning('Ocorreu um erro.')
       }
     },
-
-    async getAllProducts() {
+    async getAllPayments() {
       try {
-        const response = await this.$api.get('/products/')
+        const response = await this.$api.get('/payment/')
         this.items = response.data
-      } catch (error) {
-        return this.$toast.warning('Ocorreu um erro.')
-      }
-    },
-
-    async getAllCategories() {
-      try {
-        const response = await this.$api.get('/Category')
-        this.categories = response.data
       } catch (error) {
         return this.$toast.warning('Ocorreu um erro.')
       }

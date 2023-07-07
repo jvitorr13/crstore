@@ -10,7 +10,7 @@
   >
     <v-row>
       <v-col class="d-flex justify-center align-center">
-        <h1 >Cadastro de Pedidos</h1>
+        <h1 >Cadastro de Endereços</h1>
       </v-col>
     </v-row>
     <v-row class="d-flex justify-center align-center">
@@ -24,7 +24,7 @@
         width="1080"
         
       >
-        <v-card-title >
+        <v-card-title>
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
@@ -34,7 +34,7 @@
           ></v-text-field>
         </v-card-title>
         <v-data-table
-         
+          
           :headers="headers"
           :items="items"
           :search="search"
@@ -57,62 +57,75 @@
         </v-card-title>
         <v-card-content style="padding: 15px">
           <v-row>
-            <v-col>
+            <v-col cols="4">
               <v-autocomplete
-                v-model="idAdress"
-                :items="address"
-                item-text="street"
-                item-value="id"
-                label="Endereço"
-              />
-            </v-col>
-            <v-col>
-              <v-autocomplete
-                v-model="idPayment"
-                :items="payments"
+                v-model="idUser"
+                :items="users"
                 item-text="name"
-                item-value="id"
-                label="Pagamento"
-              />
-            </v-col>
-            <v-col>
-              <v-autocomplete
-                v-model="idCupom"
-                :items="cupoms"
-                item-text="code"
                 item-value="id"
                 label="Usuário"
               />
+            </v-col>
+            <v-col cols="6">
+              <v-text-field
+                v-model="street"
+                outlined
+               
+                placeholder="Rua"
+                label="Rua"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col cols="2">
+              <v-text-field
+                v-model="numberForget"
+                outlined
+                
+                placeholder="Número"
+                label="Número"
+              >
+              </v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col>
               <v-text-field
-                v-model="status"
-                outlined
-                
-                placeholder="Status"
-                label="Status"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col>
-              <v-text-field
-                v-model="total"
-                outlined
-                
-                placeholder="Total"
-                label="Total"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col>
-              <v-text-field
-                v-model="totalDiscount"
+                v-model="district"
                 outlined
                
-                placeholder="Desconto total"
-                label="Desconto total"
+                placeholder="Bairro"
+                label="Bairro"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col>
+              <v-text-field
+                v-model="zipCode"
+                
+                outlined
+                
+                placeholder="CEP"
+                label="CEP"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col>
+              <v-text-field
+                v-model="city"
+                outlined
+               
+                placeholder="Cidade"
+                label="Cidade"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col>
+              <v-text-field
+                v-model="state"
+                outlined
+                
+                placeholder="Estado"
+                label="Estado"
               >
               </v-text-field>
             </v-col>
@@ -135,16 +148,13 @@ export default {
       search: null,
       items: [],
       users: [],
-      payments: [],
-      cupoms: [],
-      address: [],
-      id: null,
-      status: null,
-      total: null,
-      totalDiscount: null,
-      idAdress: null, 
-      idPayment: null, 
-      idCupom: null, 
+      idUser: [],
+      zipCode: null,
+      state: null,
+      city: null,
+      street: null,
+      district: null,
+      numberForget: null,
       dialog: false,
       headers: [
         {
@@ -153,33 +163,38 @@ export default {
           align: 'center',
         },
         {
-          text: 'id Endereço',
-          value: 'idAdress',
+          text: 'Rua',
+          value: 'street',
           align: 'center',
         },
         {
-          text: 'id Cupom',
-          value: 'idCupom',
+          text: 'Número',
+          value: 'numberForget',
           align: 'center',
         },
         {
-          text: 'id Pagamento',
-          value: 'idPayment',
+          text: 'Bairro',
+          value: 'district',
           align: 'center',
         },
         {
-          text: 'Status',
-          value: 'status',
+          text: 'CEP',
+          value: 'zipCode',
           align: 'center',
         },
         {
-          text: 'Desconto',
-          value: 'totalDiscount',
+          text: 'Cidade',
+          value: 'city',
           align: 'center',
         },
         {
-          text: 'Total',
-          value: 'total',
+          text: 'Estado',
+          value: 'state',
+          align: 'center',
+        },
+        {
+          text: 'ID do Usuário',
+          value: 'idUser',
           align: 'center',
         },
         { text: 'Ações', value: 'actions', style: 'center', filterable: false },
@@ -194,51 +209,51 @@ export default {
   },
 
   async created() {
-    await this.getAllOrders()
-    await this.getAllUsers()
     await this.getAllAddress()
-    await this.getAllCupoms()
-    await this.getAllPayments()
+    await this.getAllUsers()
   },
 
   methods: {
     update(item) {
       this.id = item.id
-      this.status = item.status
-      this.total = item.total
-      this.totalDiscount = item.totalDiscount
-      this.idAdress = item.idAdress
-      this.idPayment = item.idPayment
-      this.idCupom = item.idCupom
+      this.zipCode = item.zipCode
+      this.state = item.state
+      this.city = item.city
+      this.street = item.street
+      this.district = item.district
+      this.numberForget = item.numberForget
+      this.idUser = item.idUser
       this.dialog = true
     },
 
     async persist() {
       try {
         const request = {
-          status: this.status,
-          total: this.total,
-          totalDiscount: this.totalDiscount,
-          idAdress: this.idAdress,
-          idPayment: this.idPayment,
-          idCupom: this.idCupom,
+          zipCode: this.zipCode,
+          state: this.state,
+          city: this.city,
+          street: this.street,
+          district: this.district,
+          numberForget: this.numberForget,
+          idUser: this.idUser,
         }
         if (this.id) {
-          await this.$api.patch(`/orders/${this.id}`, request)
+          await this.$api.patch(`/address/${this.id}`, request)
           this.$toast.success('Dado editado com êxito.')
         } else {
-          await this.$api.post(`/orders/`, request)
+          await this.$api.post(`/address/`, request)
           this.$toast.success('Dado adicionado com êxito.')
         }
-        this.status = null
-        this.total = null
-        this.totalDiscount = null
-        this.idAdress = null
-        this.idPayment = null
-        this.idCupom = null
+        this.zipCode = null
+        this.state = null
+        this.city = null
+        this.idUser = null
+        this.street = null
+        this.district = null
+        this.numberForget = null
         this.id = null
         this.dialog = false
-        await this.getAllOrders()
+        await this.getAllAddress()
       } catch (error) {
         return this.$toast.warning('Ocorreu um erro.')
       }
@@ -246,17 +261,17 @@ export default {
 
     async destroy(item) {
       try {
-        await this.$api.delete(`/orders/deletar/${item.id}`)
-        await this.getAllOrders()
+        await this.$api.delete(`/address/destroy/${item.id}`)
+        await this.getAllAddress()
         this.$toast.success('Dado excluído com êxito.')
       } catch (error) {
         return this.$toast.warning('Ocorreu um erro.')
       }
     },
 
-    async getAllOrders() {
+    async getAllAddress() {
       try {
-        const response = await this.$api.get('/orders')
+        const response = await this.$api.get('/address')
         this.items = response.data
       } catch (error) {
         return this.$toast.warning('Ocorreu um erro.')
@@ -267,33 +282,6 @@ export default {
       try {
         const response = await this.$api.get('/users/')
         this.users = response.data
-      } catch (error) {
-        return this.$toast.warning('Ocorreu um erro.')
-      }
-    },
-
-    async getAllAddress() {
-      try {
-        const response = await this.$api.get('/address/')
-        this.address = response.data
-      } catch (error) {
-        return this.$toast.warning('Ocorreu um erro.')
-      }
-    },
-
-    async getAllPayments() {
-      try {
-        const response = await this.$api.get('/payment/')
-        this.payments = response.data
-      } catch (error) {
-        return this.$toast.warning('Ocorreu um erro.')
-      }
-    },
-
-    async getAllCupoms() {
-      try {
-        const response = await this.$api.get('/Cupom')
-        this.cupoms = response.data
       } catch (error) {
         return this.$toast.warning('Ocorreu um erro.')
       }

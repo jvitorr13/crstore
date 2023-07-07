@@ -3,7 +3,7 @@
   <v-row justify="center">
     <v-col cols="12" sm="8" md="6">
       <v-card>
-        <v-btn color="green" href="/user/">usuario</v-btn>
+        <v-btn  color="red"   href="/admin/">admin</v-btn>
         <img height="360" width="568" src="https://logo.criativoon.com/wp-content/uploads/2016/07/logomarca-lanchonete.png">
         <v-card-title class="headline">
           Bem-vindo à lanchonete
@@ -44,7 +44,8 @@
 <script>
 
 export default {
-  name: 'IndexPage',
+  name: 'Login',
+  layout: 'user',
   data() {
     return {
       sheet: false
@@ -52,7 +53,7 @@ export default {
   },
   methods: {
     goToLogin() {
-      this.$router.push('/login');
+      this.$router.push('/user/indexPage');
     }
   }
 }
