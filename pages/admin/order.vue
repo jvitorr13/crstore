@@ -260,7 +260,7 @@ export default {
         this.items = response.data
       } catch (error) {
         return this.$toast.warning('Ocorreu um erro.')
-      }
+      } 
     },
 
     async getAllUsers() {
@@ -278,7 +278,7 @@ export default {
         this.address = response.data
       } catch (error) {
         return this.$toast.warning('Ocorreu um erro.')
-      }
+      } 
     },
 
     async getAllPayments() {

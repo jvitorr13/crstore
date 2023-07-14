@@ -306,7 +306,7 @@ export default {
 
     async getAllUsers() {
       try {
-        const response = await this.$api.get('/users')
+        const response = await this.$api.get('/users/')
         this.items = response.data
       } catch (error) {
         return this.$toast.warning('Ocorreu um erro.')

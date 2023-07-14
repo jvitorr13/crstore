@@ -10,7 +10,7 @@
             <v-text-field v-model="login.password" label="Senha" type="password" class="login-input"></v-text-field>
           </v-card-text>
           <v-col class="text-center">
-            <a  href="/admin/cadastro/" class="forgot-password-link">Não tem login? Cadastre-se</a>
+            <a  href="/user/cadastros/cadstroUser/" class="forgot-password-link">Não tem login? Cadastre-se</a>
           </v-col>
           <v-card-actions>
             <v-btn height="40px" hidden="20px" block color="#512fc0" @click="efetuarLogin">Entrar</v-btn> 
@@ -42,17 +42,17 @@ export default {
 
   methods: {
     async efetuarLogin() {
-      const user = {
+      const log = {
         username: this.login.username,
         password: this.login.passwordHash,
       };
 
       try {
-        const response = await this.$api.post('http://localhost:3333/users', user);
+        const response = await this.$api.post('/users/login', log);
         if (response.type === 'success') {
           localStorage.setItem('crstore-api-token', response.data.token);
           this.$toast.success('Você está logado!');
-          return this.$router.push('/users/by-token');
+          return this.$router.push('/user/home/home');
         }
         this.$toast.error(response.message);
       } catch (error) {
@@ -62,6 +62,8 @@ export default {
   },
 }
 </script>
+
+
 
 <style>
 .login-container {

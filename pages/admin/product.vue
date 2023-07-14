@@ -239,7 +239,7 @@ export default {
 
     async getAllCategories() {
       try {
-        const response = await this.$api.get('/Category')
+        const response = await this.$api.get('/Categories/')
         this.categories = response.data
       } catch (error) {
         return this.$toast.warning('Ocorreu um erro.')

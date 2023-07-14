@@ -115,7 +115,13 @@ export default {
         icon:'mdi-phone',
         title:'Fone',
         to:'/user/products/fone'
+      },
+      {
+        icon:'mdi-database-check-outline',
+        title:'meus dados',
+        to:'/user/dados/'
       }
+
       ],
       miniVariant: false,
       right: true,

@@ -1,5 +1,5 @@
-<!-- eslint-disable vue/valid-v-slot -->
 <!-- eslint-disable vue/v-slot-style -->
+<!-- eslint-disable vue/valid-v-slot -->
 <template>
   <v-container
     style="
@@ -10,20 +10,16 @@
   >
     <v-row>
       <v-col class="d-flex justify-center align-center">
-        <h1 >Cadastro de Endereços</h1>
+        <h1>Cadastro de Endereços</h1>
       </v-col>
     </v-row>
     <v-row class="d-flex justify-center align-center">
-      <v-btn  @click="dialog = true">
-        <v-icon> mdi-plus </v-icon>
+      <v-btn @click="dialog = true">
+        <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-row>
     <v-row style="padding-top: 20px" class="d-flex justify-center align-center">
-      <v-card
-        class="elevation-10"
-        width="1080"
-        
-      >
+      <v-card class="elevation-10" width="1080">
         <v-card-title>
           <v-text-field
             v-model="search"
@@ -33,19 +29,11 @@
             hide-details
           ></v-text-field>
         </v-card-title>
-        <v-data-table
-          
-          :headers="headers"
-          :items="items"
-          :search="search"
-        >
+        <v-data-table :headers="headers" :items="items" :search="search">
+          // eslint-disable-next-line vue/valid-v-slot
           <template v-slot:item.actions="{ item }">
-            <v-icon  @click="update(item)">
-              mdi mdi-pencil-circle
-            </v-icon>
-            <v-icon  @click="destroy(item)">
-              mdi mdi-delete-circle
-            </v-icon>
+            <v-icon @click="update(item)">mdi mdi-pencil-circle</v-icon>
+            <v-icon @click="destroy(item)">mdi mdi-delete-circle</v-icon>
           </template>
         </v-data-table>
       </v-card>
@@ -64,27 +52,23 @@
                 item-text="name"
                 item-value="id"
                 label="Usuário"
-              />
+              ></v-autocomplete>
             </v-col>
             <v-col cols="6">
               <v-text-field
                 v-model="street"
                 outlined
-               
                 placeholder="Rua"
                 label="Rua"
-              >
-              </v-text-field>
+              ></v-text-field>
             </v-col>
             <v-col cols="2">
               <v-text-field
                 v-model="numberForget"
                 outlined
-                
                 placeholder="Número"
                 label="Número"
-              >
-              </v-text-field>
+              ></v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -92,48 +76,39 @@
               <v-text-field
                 v-model="district"
                 outlined
-               
                 placeholder="Bairro"
                 label="Bairro"
-              >
-              </v-text-field>
+              ></v-text-field>
             </v-col>
             <v-col>
               <v-text-field
                 v-model="zipCode"
-                
                 outlined
-                
                 placeholder="CEP"
                 label="CEP"
-              >
-              </v-text-field>
+              ></v-text-field>
             </v-col>
             <v-col>
               <v-text-field
                 v-model="city"
                 outlined
-               
                 placeholder="Cidade"
                 label="Cidade"
-              >
-              </v-text-field>
+              ></v-text-field>
             </v-col>
             <v-col>
               <v-text-field
                 v-model="state"
                 outlined
-                
                 placeholder="Estado"
                 label="Estado"
-              >
-              </v-text-field>
+              ></v-text-field>
             </v-col>
           </v-row>
         </v-card-content>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn  @click="persist"> Salvar </v-btn>
+          <v-btn @click="persist">Salvar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -148,7 +123,7 @@ export default {
       search: null,
       items: [],
       users: [],
-      idUser: [],
+      idUser: null,
       zipCode: null,
       state: null,
       city: null,
@@ -199,33 +174,29 @@ export default {
         },
         { text: 'Ações', value: 'actions', style: 'center', filterable: false },
       ],
-    }
+    };
   },
-
   computed: {
     tituloDialog() {
-      return this.id ? 'Editar Registro' : 'Criar Registro'
+      return this.id ? 'Editar Registro' : 'Criar Registro';
     },
   },
-
   async created() {
-    await this.getAllAddress()
-    await this.getAllUsers()
+    await this.getAllAddress();
+    await this.getAllUsers();
   },
-
   methods: {
     update(item) {
-      this.id = item.id
-      this.zipCode = item.zipCode
-      this.state = item.state
-      this.city = item.city
-      this.street = item.street
-      this.district = item.district
-      this.numberForget = item.numberForget
-      this.idUser = item.idUser
-      this.dialog = true
+      this.id = item.id;
+      this.zipCode = item.zipCode;
+      this.state = item.state;
+      this.city = item.city;
+      this.street = item.street;
+      this.district = item.district;
+      this.numberForget = item.numberForget;
+      this.idUser = item.idUser;
+      this.dialog = true;
     },
-
     async persist() {
       try {
         const request = {
@@ -236,58 +207,56 @@ export default {
           district: this.district,
           numberForget: this.numberForget,
           idUser: this.idUser,
-        }
+        };
         if (this.id) {
-          await this.$api.patch(`/address/${this.id}`, request)
-          this.$toast.success('Dado editado com êxito.')
+          await this.$api.patch(`/address/${this.id}`, request);
+          this.$toast.success('Dado editado com êxito.');
         } else {
-          await this.$api.post(`/address/`, request)
-          this.$toast.success('Dado adicionado com êxito.')
+          await this.$api.post('/address/', request);
+          this.$toast.success('Dado adicionado com êxito.');
         }
-        this.zipCode = null
-        this.state = null
-        this.city = null
-        this.idUser = null
-        this.street = null
-        this.district = null
-        this.numberForget = null
-        this.id = null
-        this.dialog = false
-        await this.getAllAddress()
+        this.zipCode = null;
+        this.state = null;
+        this.city = null;
+        this.idUser = null;
+        this.street = null;
+        this.district = null;
+        this.numberForget = null;
+        this.id = null;
+        this.dialog = false;
+        await this.getAllAddress();
       } catch (error) {
-        return this.$toast.warning('Ocorreu um erro.')
+        return this.$toast.warning('Ocorreu um erro.');
       }
     },
-
     async destroy(item) {
       try {
-        await this.$api.delete(`/address/destroy/${item.id}`)
-        await this.getAllAddress()
-        this.$toast.success('Dado excluído com êxito.')
+        await this.$api.delete(`/address/destroy/${item.id}`);
+        await this.getAllAddress();
+        this.$toast.success('Dado excluído com êxito.');
       } catch (error) {
-        return this.$toast.warning('Ocorreu um erro.')
+        return this.$toast.warning('Ocorreu um erro.');
       }
     },
-
     async getAllAddress() {
       try {
-        const response = await this.$api.get('/address')
-        this.items = response.data
+        const response = await this.$api.get('/address/');
+        this.items = response.data;
       } catch (error) {
-        return this.$toast.warning('Ocorreu um erro.')
+        return this.$toast.warning('Ocorreu um erro.');
       }
     },
-
     async getAllUsers() {
       try {
-        const response = await this.$api.get('/users/')
-        this.users = response.data
+        const response = await this.$api.get('/users/');
+        this.users = response.data;
       } catch (error) {
-        return this.$toast.warning('Ocorreu um erro.')
+        return this.$toast.warning('Ocorreu um erro.');
       }
     },
   },
-}
+};
 </script>
 
-<style></style>
+<style>
+</style>

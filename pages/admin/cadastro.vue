@@ -7,21 +7,107 @@
           <v-card-text>
 
             <h2 color:white class="">Crie sua conta</h2>
-            <v-text-field v-model="name" label="Nome" class="signup-input"></v-text-field>
-            <v-text-field v-model="email" label="E-mail" class="signup-input"></v-text-field>
-            <v-text-field v-model="password" label="Senha" type="password" class="signup-input"></v-text-field>
-            <v-text-field v-model="password" label="cpf" type="cpf" class="signup-input"></v-text-field>
-            <v-text-field v-model="password" label="telefone" type="telefone" class="signup-input"></v-text-field>
+            <v-text-field
+              v-model="username"
+              outlined               
+              placeholder="ursename"
+              label="usename"
+              >
+            </v-text-field>
+            <v-text-field
+             v-model="name"
+             outlined
+             label="name"
+             placeholder="name"
+              >
+            </v-text-field>
+            <v-text-field
+              v-model="phone"
+              label="phone"
+              outlined
+              placeholder="phone"
+              >
+            </v-text-field>
+            <v-text-field
+             v-model="password"
+             label="password"
+             outlined
+             placeholder="password"
+             >
+            </v-text-field>
+            <v-text-field
+             v-model="role"
+             label="role"
+             outlined
+             placeholder="role"
+             >
+            </v-text-field>
+            <v-text-field
+             v-model="cpf"
+             label="cpf"
+             outlined  
+             placeholder="cpf">
+            </v-text-field>
+            <v-text-field 
+            v-model="email" 
+            label="email" 
+            outlined 
+            placeholder="email">
+          </v-text-field>
           </v-card-text>
           <v-card-actions>
-            <v-btn text color="blue" class="signup-button" @click="signup">Cadastrar</v-btn>
-            <v-btn text color="red" class="signup-button" @click="goToLogin">Já tenho uma conta</v-btn>
+            <v-btn text color="blue" @click="criar()">Cadastrar</v-btn>
+            <v-btn text color="red" href="admin/login"  @click="login">Já tenho uma conta</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'Users',
+  layout: 'user',
+  data() {
+    return {
+      valid: false,
+      users: {
+        username: null,
+        cpf: null,
+        password: null,
+        role: null,
+        name: null,
+        phone: null,
+        email: null,
+      },
+      rule: [(v) => !!v || 'Esse campo é obrigatório'],
+    }
+  },
+
+  async criar() {
+  try {
+    const request = {
+      username: this.users.name,
+      cpf: this.users.cpf,
+      password: this.users.password,
+      phone: this.users.phone,
+      email: this.users.email,
+      role: this.user.role,
+      name: this.users.name,
+    };
+    const response = await this.$api.$post('/users/',request);
+    if (response.type === "success") {
+      this.$toast.success(response.message);    
+    } else {
+      this.$toast.error(response.message);
+    }
+  } catch (error) {
+    return this.$toast.error('Erro ao criar sua conta')
+  }
+}
+}
+</script>
 
 <style scoped>
 .signup-container {
@@ -57,7 +143,3 @@
   color: #fff;
 }
 </style>
-
-<script>
-
-</script>

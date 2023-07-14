@@ -30,8 +30,8 @@
           <hr class="my-3" />
         </v-card-text>
         <v-card-actions>
-          <v-btn text color="primary" class="mr-4" to="/admin/login">Login</v-btn>
-          <v-btn text color="red" to="/admin/cadastro">Cadastro</v-btn>
+          <v-btn text color="primary" class="mr-4" to="/user/cadastros/loginUser">Login</v-btn>
+          <v-btn text color="red" to="/user/cadastros/cadastroUser">Cadastro</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
